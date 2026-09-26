@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEAVYKART | Premium Men's Fashion Store</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        heavy: {
+                            50: '#fafafa',
+                            100: '#f4f4f5',
+                            200: '#e4e4e7',
+                            800: '#27272a',
+                            900: '#18181b',
+                            950: '#09090b',
+                            accent: '#f59e0b', /* Warm Amber / Gold */
+                            accentHover: '#d97706',
+                            whatsapp: '#25D366',
+                            whatsappDark: '#128C7E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0d0e;
+            color: #f4f4f5;
+            overflow-x: hidden;
+        }
+        .font-heavy {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.05em;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121316;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+        .glass-panel {
+            background: rgba(18, 19, 22, 0.85);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .badge-pulse {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.04); }
+        }
+    </style>
+</head>
+<body class="bg-[#0b0c0e] text-zinc-100 flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <aside aria-label="Announcement" class="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 text-black text-xs font-bold py-2 px-4 text-center tracking-wider uppercase flex items-center justify-center gap-2 shadow-inner">
+        <i data-lucide="zap" class="w-3.5 h-3.5 animate-bounce"></i>
+        <span>FLASH MEN'S FEST: EXTRA 20% OFF ON ORDERS OVER ₹1,999 | INSTANT BUY ON WHATSAPP</span>
+        <i data-lucide="truck" class="w-3.5 h-3.5 ml-2"></i>
+    </aside>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="resetFilters()">
+                <div class="w-10 h-10 bg-amber-500 text-black rounded-lg flex items-center justify-center font-heavy text-2xl font-black shadow-lg shadow-amber-500/30">
+                    H
+                </div>
+                <div>
+                    <span class="font-heavy text-2xl sm:text-3xl font-extrabold tracking-widest text-white">HEAVY<span class="text-amber-500">KART</span></span>
+                    <span class="block text-[10px] tracking-[0.25em] text-zinc-400 font-semibold uppercase -mt-1">Men's Fast Fashion</span>
+                </div>
+            </div>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+                <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                <input type="text" id="searchInput" placeholder="Search oversized tees, cargos, jackets..." 
+                    class="w-full bg-zinc-900/90 text-sm border border-zinc-700 rounded-full pl-10 pr-4 py-2 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Owner Admin Portal Button -->
+                <button onclick="openAdminModal()" class="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-amber-400 border border-zinc-700 px-3 py-2 rounded-lg text-xs font-semibold transition-all shadow-sm" title="Owner Admin Dashboard">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-amber-500"></i>
+                    <span class="hidden sm:inline">Owner Login</span>
+                </button>
+
+                <!-- WhatsApp Support Direct Link -->
+                <button onclick="openDirectWhatsAppChat()" class="flex items-center gap-1.5 bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#25D366] border border-[#25D366]/40 px-3 py-2 rounded-lg text-xs font-bold transition-all" title="Direct WhatsApp Assistance">
+                    <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+                    <span class="hidden sm:inline">WhatsApp Help</span>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCartDrawer(true)" class="relative bg-amber-500 hover:bg-amber-400 text-black px-3.5 py-2 rounded-lg font-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-amber-500/20">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline font-semibold">Cart</span>
+                    <span id="cartCountBadge" class="bg-black text-amber-400 text-xs px-2 py-0.5 rounded-full font-extrabold ml-0.5">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Input Bar -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative w-full">
+                <i data-lucide="search" class="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                <input type="text" id="mobileSearchInput" placeholder="Search men's streetwear, shirts..." 
+                    class="w-full bg-zinc-900 text-sm border border-zinc-700 rounded-full pl-10 pr-4 py-2 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative overflow-hidden border-b border-zinc-800 bg-gradient-to-b from-zinc-900 to-[#0b0c0e]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                    <i data-lucide="flame" class="w-4 h-4 fill-amber-500"></i> New Season Drop 2026
+                </div>
+                <h1 class="font-heavy text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-none uppercase">
+                    HEAVYWEIGHT <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-yellow-500">STREET FIT</span> & FORMALS
+                </h1>
+                <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                    Elevate your masculine aesthetic with 450 GSM Drop-Shoulder Tees, Precision Cargo Pants, Cuban Linen Shirts, and Tailored Men's Essentials. Instant order confirmation on WhatsApp.
+                </p>
+
+                <!-- Quick CTA Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                    <button onclick="filterBySpecial('sale')" class="bg-amber-500 hover:bg-amber-400 text-black font-heavy text-lg px-6 py-3 rounded-xl transition-all shadow-xl shadow-amber-500/25 flex items-center gap-2 uppercase">
+                        <i data-lucide="tag" class="w-5 h-5"></i> View On-Sale Items
+                    </button>
+                    <button onclick="filterCategory('All')" class="bg-zinc-800 hover:bg-zinc-700 text-white font-heavy text-lg px-6 py-3 rounded-xl border border-zinc-700 transition-all flex items-center gap-2 uppercase">
+                        <i data-lucide="grid" class="w-5 h-5"></i> Explore Full Drop
+                    </button>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="grid grid-cols-3 gap-2 pt-6 border-t border-zinc-800/80 max-w-md mx-auto lg:mx-0 text-zinc-400 text-xs text-center">
+                    <div>
+                        <span class="block font-bold text-white text-sm">Direct WhatsApp</span>
+                        <span>Zero payment hassle</span>
+                    </div>
+                    <div>
+                        <span class="block font-bold text-white text-sm">48-Hr Dispatch</span>
+                        <span>All India Delivery</span>
+                    </div>
+                    <div>
+                        <span class="block font-bold text-white text-sm">Easy Exchange</span>
+                        <span>Size swap guaranteed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Feature Cards Preview -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative mx-auto max-w-md rounded-2xl overflow-hidden shadow-2xl border border-zinc-700 group">
+                    <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=800&auto=format&fit=crop" 
+                         alt="Men's Fashion Highlight" 
+                         class="w-full h-96 object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6">
+                        <div class="inline-block bg-red-600 text-white font-bold text-xs px-2.5 py-1 rounded w-fit uppercase tracking-wider mb-2 badge-pulse">
+                            TRENDING #1
+                        </div>
+                        <h3 class="text-xl font-heavy uppercase font-bold text-white">Vintage Acid-Wash Heavyweight Tee</h3>
+                        <p class="text-xs text-zinc-300 mb-3">Ultra 380 GSM combed cotton. Oversized relaxed fit.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-amber-400 font-bold text-lg">₹999 <s class="text-zinc-500 text-xs">₹1,799</s></span>
+                            <button onclick="quickBuyWhatsApp(1)" class="bg-[#25D366] hover:bg-[#20b858] text-black font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 shadow-md">
+                                <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current"></i> Buy On WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Category & Filter Strip -->
+    <nav aria-label="Product Categories" class="sticky top-20 z-30 bg-[#101114] border-b border-zinc-800 py-3 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 overflow-x-auto no-scrollbar">
+            
+            <!-- Category Tabs -->
+            <div class="flex items-center gap-2 flex-shrink-0" id="categoryButtonsContainer">
+                <!-- Dynamically populated categories -->
+            </div>
+
+            <!-- Sort and On-Sale Toggle -->
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <button id="saleOnlyToggle" onclick="toggleSaleFilter()" class="flex items-center gap-1.5 bg-red-500/10 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-full text-xs font-bold hover:bg-red-500/20 transition-all">
+                    <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                    <span>On Sale Only</span>
+                </button>
+                <select id="sortSelect" onchange="handleSortChange()" class="bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-amber-500">
+                    <option value="featured">Featured First</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="discount">Biggest Discount</option>
+                </select>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Main Content: Store Catalogue -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Filter Status Bar -->
+        <div class="flex items-center justify-between mb-6 pb-2 border-b border-zinc-800 text-xs text-zinc-400">
+            <div id="filterResultText">
+                Showing all <span id="itemCount" class="text-amber-400 font-bold">0</span> men's products
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-zinc-500">Store WhatsApp:</span>
+                <span id="displayStoreWhatsApp" class="text-emerald-400 font-mono font-semibold">+91 9381250578</span>
+            </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Injected by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyCatalogueState" class="hidden text-center py-20">
+            <div class="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto text-zinc-500 mb-4">
+                <i data-lucide="package-search" class="w-8 h-8 text-amber-500/70"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">No products available in the store</h3>
+            <p class="text-xs text-zinc-400 max-w-sm mx-auto mb-4">All previous items have been cleared. Store owners can log in to upload new products with JPG images, prices, and sizes.</p>
+            <div class="flex items-center justify-center gap-3">
+                <button onclick="openAdminModal()" class="bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold px-4 py-2 rounded-lg uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-amber-500/20">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i> Add Products to Sell
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Full Screen Product Detail Modal -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md overflow-y-auto hidden" onclick="handleDetailBackdropClick(event)">
+        <div class="min-h-screen flex flex-col justify-between max-w-6xl mx-auto px-4 sm:px-6 py-6">
+            
+            <!-- Modal Navigation Header -->
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6 sticky top-0 bg-black/80 backdrop-blur-md z-20">
+                <button onclick="closeProductModal()" class="flex items-center gap-2 text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-700 px-3.5 py-2 rounded-xl text-xs font-bold transition-all">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>Back to Drops</span>
+                </button>
+                <div class="flex items-center gap-3">
+                    <button onclick="openActiveProductLightbox()" class="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-amber-400 border border-amber-500/40 px-3 py-2 rounded-xl text-xs font-bold transition-all" title="View Fullscreen Photo">
+                        <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Zoom Full Image</span>
+                    </button>
+                    <button onclick="toggleCartDrawer(true)" class="flex items-center gap-2 bg-amber-500 text-black px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-amber-400 transition-all">
+                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                        <span id="modalCartCount" class="font-black">0</span>
+                    </button>
+                    <button onclick="closeProductModal()" class="p-2 text-zinc-400 hover:text-white rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Product Showcase Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left: Big Product Image with Click-to-Zoom -->
+                <div class="lg:col-span-7 space-y-3">
+                    <div class="relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 group cursor-pointer shadow-2xl" onclick="openActiveProductLightbox()">
+                        <img id="modalProdImage" src="" alt="Product Showcase" 
+                            class="w-full max-h-[620px] object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                        
+                        <!-- Badges Overlay -->
+                        <div id="modalProdBadges" class="absolute top-4 left-4 flex flex-col gap-2 z-10">
+                            <!-- Injected dynamically -->
+                        </div>
+
+                        <!-- Hover Fullscreen Photo Overlay Cue -->
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-200">
+                            <span class="bg-black/90 text-white font-bold text-xs px-4 py-2 rounded-full border border-amber-500/60 shadow-2xl flex items-center gap-2 backdrop-blur">
+                                <i data-lucide="maximize-2" class="w-4 h-4 text-amber-400"></i> Tap to View Full Screen Photo
+                            </span>
+                        </div>
+
+                        <!-- Expand Photo Floating Badge -->
+                        <button type="button" onclick="event.stopPropagation(); openActiveProductLightbox()" class="absolute bottom-4 right-4 bg-black/80 hover:bg-black text-amber-400 border border-zinc-700 p-2.5 rounded-xl shadow-lg flex items-center gap-1.5 text-xs font-bold transition-all">
+                            <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                            <span>View Full Image</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Product Specifications & Order Box -->
+                <div class="lg:col-span-5 space-y-6 bg-[#131417] p-6 rounded-2xl border border-zinc-800">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span id="modalProdCategory" class="text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/20">Category</span>
+                            <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i> In Stock & Ready to Dispatch
+                            </span>
+                        </div>
+                        <h1 id="modalProdTitle" class="font-heavy text-2xl sm:text-3xl font-extrabold text-white uppercase leading-tight tracking-wide">
+                            Product Title
+                        </h1>
+                    </div>
+
+                    <!-- Price Block -->
+                    <div class="flex items-baseline gap-3 p-4 bg-zinc-900/80 rounded-xl border border-zinc-800">
+                        <span id="modalProdSalePrice" class="font-heavy text-3xl font-black text-white">₹0</span>
+                        <s id="modalProdOriginalPrice" class="text-sm text-zinc-500">₹0</s>
+                        <span id="modalProdDiscountTag" class="bg-red-500/20 text-red-400 border border-red-500/40 text-[11px] font-bold px-2 py-0.5 rounded">0% OFF</span>
+                    </div>
+
+                    <!-- Description & Specifications -->
+                    <div class="space-y-2 text-xs">
+                        <span class="text-zinc-400 font-bold uppercase tracking-wider block">Description & Specs:</span>
+                        <p id="modalProdDescription" class="text-zinc-300 leading-relaxed bg-zinc-950/70 p-3 rounded-xl border border-zinc-800/80">
+                            Description text.
+                        </p>
+                    </div>
+
+                    <!-- Size Picker -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-zinc-300 font-bold uppercase tracking-wider">Select Size:</span>
+                            <span class="text-zinc-500 text-[11px]">Regular Streetwear Fit</span>
+                        </div>
+                        <div id="modalSizesContainer" class="flex flex-wrap gap-2">
+                            <!-- Injected sizes -->
+                        </div>
+                    </div>
+
+                    <!-- Quantity Stepper -->
+                    <div class="flex items-center gap-3 pt-2">
+                        <span class="text-xs font-bold text-zinc-300 uppercase">Quantity:</span>
+                        <div class="flex items-center border border-zinc-700 bg-zinc-950 rounded-xl overflow-hidden">
+                            <button onclick="changeModalQty(-1)" class="px-3 py-2 text-zinc-300 hover:text-white hover:bg-zinc-800 font-bold transition-all">-</button>
+                            <span id="modalQtyDisplay" class="px-4 py-2 text-xs font-bold text-amber-400 font-mono">1</span>
+                            <button onclick="changeModalQty(1)" class="px-3 py-2 text-zinc-300 hover:text-white hover:bg-zinc-800 font-bold transition-all">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="space-y-3 pt-4 border-t border-zinc-800">
+                        <button onclick="buyModalProductWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20ba59] text-black font-heavy text-base py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 uppercase tracking-wider shadow-lg shadow-green-950/40 transition-all font-bold">
+                            <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
+                            <span>Buy Instant On WhatsApp</span>
+                        </button>
+                        <button onclick="addModalProductToCart()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-heavy text-base py-3 px-4 rounded-xl flex items-center justify-center gap-2 uppercase tracking-wider border border-zinc-700 hover:text-amber-400 transition-all font-bold">
+                            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                            <span>Add To Shopping Bag</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Related Drops Showcase Section -->
+            <div class="mt-14 border-t border-zinc-800 pt-8 pb-4">
+                <h4 class="font-heavy text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i> Complete The Heavy Aesthetic (More Drops)
+                </h4>
+                <div id="modalRelatedContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <!-- Related items injected dynamically -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Dedicated Fullscreen Image Lightbox Modal -->
+    <div id="imageLightboxModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-lg hidden flex flex-col justify-between items-center p-4 sm:p-6" onclick="closeImageLightbox()">
+        <div class="w-full max-w-5xl flex items-center justify-between z-10" onclick="event.stopPropagation()">
+            <h3 id="lightboxTitle" class="text-sm font-heavy text-white uppercase tracking-wider font-bold truncate pr-4">Product Image</h3>
+            <button onclick="closeImageLightbox()" class="text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-700 p-2 rounded-xl">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center p-2 max-w-5xl w-full" onclick="event.stopPropagation()">
+            <img id="lightboxImg" src="" alt="Fullscreen Product View" 
+                class="max-h-[82vh] max-w-full object-contain rounded-2xl shadow-2xl border border-zinc-800">
+        </div>
+
+        <div class="w-full max-w-md pb-2 z-10 flex gap-3" onclick="event.stopPropagation()">
+            <button onclick="closeImageLightbox()" class="w-1/2 bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2.5 rounded-xl text-xs uppercase border border-zinc-700">
+                Close Viewer
+            </button>
+            <button onclick="buyFromLightbox()" class="w-1/2 bg-[#25D366] hover:bg-[#20ba59] text-black font-bold py-2.5 rounded-xl text-xs uppercase flex items-center justify-center gap-1.5 shadow-lg">
+                <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+                <span>Buy On WhatsApp</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Drawer Modal -->
+    <div id="cartDrawerBackdrop" class="fixed inset-0 bg-black/75 z-50 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm" onclick="toggleCartDrawer(false)"></div>
+    <div id="cartDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#121316] border-l border-zinc-800 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        
+        <!-- Cart Header -->
+        <div class="p-4 border-b border-zinc-800 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-amber-500"></i>
+                <h2 class="font-heavy text-xl uppercase font-bold text-white tracking-wide">Your Shopping Bag</h2>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
+            <!-- Populated via JS -->
+        </div>
+
+        <!-- Cart Footer & WhatsApp Checkout Summary -->
+        <div class="p-4 border-t border-zinc-800 bg-[#0e0f12] space-y-3">
+            <div class="space-y-1.5 text-xs">
+                <div class="flex justify-between text-zinc-400">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal" class="font-medium text-zinc-200">₹0</span>
+                </div>
+                <div class="flex justify-between text-emerald-400">
+                    <span>Total Discount Savings:</span>
+                    <span id="cartDiscount" class="font-medium">-₹0</span>
+                </div>
+                <div class="flex justify-between text-zinc-400">
+                    <span>Estimated Shipping:</span>
+                    <span class="text-emerald-400 font-bold uppercase">Free</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-zinc-800">
+                    <span>Grand Total:</span>
+                    <span id="cartGrandTotal" class="text-amber-400 font-heavy text-xl">₹0</span>
+                </div>
+            </div>
+
+            <!-- WhatsApp Checkout Trigger Button -->
+            <button onclick="openCheckoutModal()" id="cartCheckoutBtn" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-black font-bold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-900/30 transition-all uppercase tracking-wide">
+                <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
+                <span>Order Bag On WhatsApp</span>
+            </button>
+
+            <button onclick="clearCart()" class="w-full text-zinc-500 hover:text-red-400 text-xs py-1 transition-colors">
+                Empty Cart
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Customer Details for WhatsApp Order Modal -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-[#141518] border border-zinc-700 w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div class="p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-900/50">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-[#25D366]/20 text-[#25D366] flex items-center justify-center">
+                        <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heavy text-lg uppercase font-bold text-white">Complete WhatsApp Order</h3>
+                        <p class="text-[11px] text-zinc-400">We format your order and open WhatsApp directly with the owner</p>
+                    </div>
+                </div>
+                <button onclick="closeCheckoutModal()" class="text-zinc-400 hover:text-white p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="checkoutForm" onsubmit="executeWhatsAppOrder(event)" class="p-5 space-y-4 text-xs">
+                <!-- Order summary chips -->
+                <div id="checkoutOrderPreview" class="bg-zinc-900/80 p-3 rounded-lg border border-zinc-800 max-h-32 overflow-y-auto space-y-1">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-zinc-300 font-semibold mb-1">Your Full Name *</label>
+                        <input type="text" id="custName" required placeholder="e.g. Rahul Verma" 
+                            class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-zinc-300 font-semibold mb-1">Contact Phone / WhatsApp *</label>
+                        <input type="tel" id="custPhone" required placeholder="e.g. 9876543210" 
+                            class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-zinc-300 font-semibold mb-1">Complete Delivery Address with Pincode *</label>
+                    <textarea id="custAddress" required rows="2" placeholder="House/Flat No, Landmark, City, State - PIN" 
+                        class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-zinc-300 font-semibold mb-1">Preferred Payment Mode</label>
+                        <select id="custPayment" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+                            <option value="UPI / QR Code">UPI (GPay / PhonePe / Paytm)</option>
+                            <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+                            <option value="Direct Bank Transfer">Bank Transfer / IMPS</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-zinc-300 font-semibold mb-1">Special Instruction (Optional)</label>
+                        <input type="text" id="custNotes" placeholder="e.g. Call before delivery" 
+                            class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-[#25D366] hover:bg-[#1faa50] text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-950 transition-all uppercase tracking-wide">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Confirm & Send Order via WhatsApp</span>
+                    </button>
+                    <p class="text-[10px] text-zinc-500 text-center mt-2">
+                        WhatsApp will open with a ready-made bill message. Tap Send to finalize with our team!
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Owner / Admin Portal Modal -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-[#131417] border border-zinc-700 w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[92vh]">
+            
+            <!-- Admin Header -->
+            <div class="p-4 sm:p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-900/80">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center">
+                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-heavy text-xl uppercase font-bold text-white tracking-wide">HeavyKart Owner Control Panel</h2>
+                        <p class="text-xs text-zinc-400">Add products, configure discounts, manage WhatsApp orders & phone number</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="text-zinc-400 hover:text-white p-1.5 rounded-lg hover:bg-zinc-800">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Admin Authentication Overlay (If locked) -->
+            <div id="adminLockScreen" class="p-8 text-center space-y-4 flex-1 flex flex-col justify-center items-center">
+                <div class="w-16 h-16 bg-zinc-800 border border-zinc-700 rounded-2xl flex items-center justify-center text-amber-400 mb-2">
+                    <i data-lucide="lock" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Owner Passcode Required</h3>
+                <p class="text-xs text-zinc-400 max-w-xs">Enter your secure store manager code to add products on sell or update prices.</p>
+                <div class="w-full max-w-xs space-y-3">
+                    <input type="password" id="adminPassInput" placeholder="Enter owner passcode" 
+                        class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-sm text-center tracking-widest text-white focus:outline-none focus:border-amber-500">
+                    <button onclick="verifyAdminPasscode()" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-heavy text-base py-2.5 rounded-xl uppercase">
+                        Unlock Dashboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Main Workspace -->
+            <div id="adminWorkspace" class="hidden flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+                
+                <!-- Quick Store Settings Card -->
+                <div class="glass-panel p-4 rounded-xl border border-zinc-800 flex flex-wrap items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider block">Store WhatsApp Order Number</span>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="ownerPhoneSetting" placeholder="e.g. 919381250578 (with country code)" 
+                                class="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono w-60 focus:border-amber-500 focus:outline-none">
+                            <button onclick="saveStoreSettings()" class="bg-zinc-800 hover:bg-zinc-700 text-amber-400 px-3 py-1.5 rounded-lg text-xs font-bold border border-zinc-700">
+                                Save Number
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="clearAllProducts()" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 text-xs px-3 py-2 rounded-lg border border-red-500/40 flex items-center gap-1.5 transition-colors" title="Delete all items from catalogue">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear All Products
+                        </button>
+                        <button onclick="lockAdminPanel()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white text-xs px-3 py-2 rounded-lg border border-zinc-700 flex items-center gap-1.5">
+                            <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Lock Panel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabs: Add Product / Manage Products / WhatsApp Leads Log -->
+                <div class="border-b border-zinc-800 flex gap-4 text-xs font-bold uppercase tracking-wider">
+                    <button onclick="switchAdminTab('add')" id="tabBtnAdd" class="pb-3 text-amber-400 border-b-2 border-amber-500">
+                        + Add New Product to Sell
+                    </button>
+                    <button onclick="switchAdminTab('inventory')" id="tabBtnInventory" class="pb-3 text-zinc-400 hover:text-white">
+                        Inventory & Sale Control (<span id="adminInventoryCount">0</span>)
+                    </button>
+                    <button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="pb-3 text-zinc-400 hover:text-white">
+                        Recent WhatsApp Inquiries (<span id="adminOrdersCount">0</span>)
+                    </button>
+                </div>
+
+                <!-- Tab 1: Add New Product Form -->
+                <div id="tabAddProduct" class="space-y-4">
+                    <form id="addProductForm" onsubmit="handleAddNewProduct(event)" class="space-y-4 bg-zinc-900/60 p-5 rounded-xl border border-zinc-800">
+                        <h4 class="font-heavy uppercase text-base text-amber-400 font-bold flex items-center gap-2">
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i> Enter Product Details
+                        </h4>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <label class="block text-zinc-300 font-semibold mb-1">Product Title *</label>
+                                <input type="text" id="newProdName" required placeholder="e.g. Heavy Acid-Wash Oversized T-Shirt" 
+                                    class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-zinc-300 font-semibold mb-1">Category *</label>
+                                <select id="newProdCategory" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+                                    <option value="Oversized Tees">Oversized Tees (Drop-Shoulder)</option>
+                                    <option value="Cargo & Pants">Cargo & Utility Pants</option>
+                                    <option value="Shirts & Polos">Shirts & Cuban Polos</option>
+                                    <option value="Jackets & Hoodies">Jackets & Heavy Hoodies</option>
+                                    <option value="Footwear">Street Sneakers & Shoes</option>
+                                    <option value="Accessories">Men's Chains & Accessories</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                            <div>
+                                <label class="block text-zinc-300 font-semibold mb-1">Original MRP Price (₹) *</label>
+                                <input type="number" id="newProdOriginalPrice" required min="1" placeholder="e.g. 1999" 
+                                    class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-zinc-300 font-semibold mb-1">Selling / Offer Price (₹) *</label>
+                                <input type="number" id="newProdSalePrice" required min="1" placeholder="e.g. 999" 
+                                    class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-zinc-300 font-semibold mb-1">Badge Tag</label>
+                                <input type="text" id="newProdBadge" placeholder="e.g. 50% OFF, HOT, NEW" 
+                                    class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+
+                        <!-- On-Sale Checkbox & Sizes -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <label class="block text-zinc-300 font-semibold mb-1">Available Sizes (Comma Separated)</label>
+                                <input type="text" id="newProdSizes" value="S, M, L, XL, XXL" placeholder="S, M, L, XL, XXL" 
+                                    class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div class="flex items-center gap-3 pt-6">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="newProdOnSale" class="sr-only peer" checked>
+                                    <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                                    <span class="ml-3 text-xs font-semibold text-zinc-300">Mark as "On Sale"</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Product JPG Image Upload & URL Options -->
+                        <div class="text-xs space-y-3 bg-zinc-950/80 p-4 rounded-xl border border-zinc-800">
+                            <div class="flex items-center justify-between">
+                                <label class="text-zinc-200 font-bold flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
+                                    <i data-lucide="image" class="w-4 h-4 text-amber-500"></i>
+                                    <span>Product Image (.JPG, .JPEG, .PNG) *</span>
+                                </label>
+                                <span class="text-[10px] text-zinc-400">Choose File OR Paste Link</span>
+                            </div>
+
+                            <!-- Option A: Direct Device JPG File Upload -->
+                            <div class="border-2 border-dashed border-zinc-700 hover:border-amber-500/70 rounded-xl p-4 text-center transition-colors bg-zinc-900/40">
+                                <input type="file" id="newProdFileInput" accept="image/jpeg, image/jpg, image/png, image/webp" 
+                                    class="hidden" onchange="handleJpgFileSelect(event)">
+                                <label for="newProdFileInput" class="cursor-pointer flex flex-col items-center justify-center gap-1.5">
+                                    <div class="w-9 h-9 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                                        <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-bold text-white text-xs hover:text-amber-400 transition-colors">
+                                        Click to Upload JPG Photo from Device
+                                    </span>
+                                    <span class="text-[10px] text-zinc-500">Supports .JPG, .JPEG, .PNG from mobile gallery or PC</span>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center gap-2 my-1">
+                                <div class="flex-1 h-px bg-zinc-800"></div>
+                                <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">OR ENTER JPG LINK</span>
+                                <div class="flex-1 h-px bg-zinc-800"></div>
+                            </div>
+
+                            <!-- Option B: Direct JPG Image URL -->
+                            <div>
+                                <input type="text" id="newProdImage" required placeholder="https://example.com/product-image.jpg" 
+                                    oninput="handleJpgUrlInput(this.value)"
+                                    class="w-full bg-zinc-900 border border-zinc-700 rounded-lg p-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 font-mono text-[11px]">
+                            </div>
+
+                            <!-- Instant Live Image Preview Card -->
+                            <div id="jpgPreviewContainer" class="hidden mt-3 p-3 bg-zinc-900 rounded-xl border border-zinc-700 flex items-center gap-3">
+                                <img id="jpgPreviewImg" src="" alt="Preview" class="w-16 h-20 object-cover rounded-lg border border-zinc-800 shadow">
+                                <div class="flex-1 min-w-0">
+                                    <span class="text-[10px] uppercase font-bold text-emerald-400 flex items-center gap-1">
+                                        <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> JPG Image Loaded
+                                    </span>
+                                    <p id="jpgPreviewInfo" class="text-[11px] text-zinc-300 font-mono truncate mt-0.5">Image Ready</p>
+                                    <button type="button" onclick="clearJpgImageInput()" class="text-[10px] text-red-400 hover:text-red-300 font-bold mt-1 inline-flex items-center gap-1">
+                                        <i data-lucide="trash-2" class="w-3 h-3"></i> Remove Image
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Curated JPG Presets -->
+                            <div class="flex flex-wrap items-center gap-2 text-[11px] text-zinc-400 pt-1">
+                                <span class="text-zinc-500 font-semibold">Instant Sample JPGs:</span>
+                                <button type="button" onclick="setSampleImg('tee')" class="px-2 py-0.5 bg-zinc-900 hover:bg-zinc-800 rounded border border-zinc-700 text-zinc-300 hover:text-amber-400">Street Tee .jpg</button>
+                                <button type="button" onclick="setSampleImg('cargo')" class="px-2 py-0.5 bg-zinc-900 hover:bg-zinc-800 rounded border border-zinc-700 text-zinc-300 hover:text-amber-400">Cargo Pants .jpg</button>
+                                <button type="button" onclick="setSampleImg('jacket')" class="px-2 py-0.5 bg-zinc-900 hover:bg-zinc-800 rounded border border-zinc-700 text-zinc-300 hover:text-amber-400">Trucker Jacket .jpg</button>
+                                <button type="button" onclick="setSampleImg('hoodie')" class="px-2 py-0.5 bg-zinc-900 hover:bg-zinc-800 rounded border border-zinc-700 text-zinc-300 hover:text-amber-400">Heavy Hoodie .jpg</button>
+                                <button type="button" onclick="setSampleImg('sneaker')" class="px-2 py-0.5 bg-zinc-900 hover:bg-zinc-800 rounded border border-zinc-700 text-zinc-300 hover:text-amber-400">Sneakers .jpg</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-zinc-300 font-semibold mb-1 text-xs">Description & Fabric Specs</label>
+                            <textarea id="newProdDesc" rows="2" placeholder="e.g. 100% French Terry Cotton, 420 GSM heavy fabric. Pre-shrunk bio-washed." 
+                                class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-amber-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-heavy text-base py-3 rounded-xl uppercase flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
+                            <i data-lucide="check" class="w-5 h-5"></i> Publish Product To Storefront
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Tab 2: Inventory & Sale Management Table -->
+                <div id="tabInventory" class="hidden space-y-4">
+                    <div class="overflow-x-auto border border-zinc-800 rounded-xl">
+                        <table class="w-full text-left text-xs text-zinc-300">
+                            <thead class="bg-zinc-900 text-zinc-400 font-bold uppercase text-[10px] tracking-wider border-b border-zinc-800">
+                                <tr>
+                                    <th class="p-3">Product</th>
+                                    <th class="p-3">Category</th>
+                                    <th class="p-3">Selling Price</th>
+                                    <th class="p-3">Original MRP</th>
+                                    <th class="p-3">Sale Status</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminInventoryTableBody" class="divide-y divide-zinc-800/60 font-sans">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Recent WhatsApp Orders / Inquiries Tracker -->
+                <div id="tabOrders" class="hidden space-y-4">
+                    <p class="text-xs text-zinc-400">Every time a customer triggers WhatsApp order checkout, an entry is captured here for your records.</p>
+                    <div id="adminOrdersList" class="space-y-3">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification Element -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 bg-zinc-900 text-white border border-zinc-700 px-4 py-3 rounded-xl shadow-2xl">
+        <div id="toastIcon" class="text-amber-400">
+            <i data-lucide="check-circle" class="w-5 h-5"></i>
+        </div>
+        <div class="text-xs">
+            <p id="toastTitle" class="font-bold text-white">Success</p>
+            <p id="toastMessage" class="text-zinc-400">Action completed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-zinc-800/80 bg-[#090a0c] text-zinc-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 bg-amber-500 text-black rounded font-heavy text-lg font-black flex items-center justify-center">H</div>
+                    <span class="font-heavy text-xl text-white font-bold tracking-widest">HEAVY<span class="text-amber-500">KART</span></span>
+                </div>
+                <p class="text-[11px] text-zinc-500 leading-relaxed">
+                    India's definitive fast-fashion label engineered for the modern man. Uncompromising GSM fabrics, structured fits, and instant WhatsApp ordering.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-heavy text-sm text-white uppercase font-bold tracking-wider mb-3">Categories</h4>
+                <ul class="space-y-1.5 text-zinc-400">
+                    <li><button onclick="filterCategory('Oversized Tees')" class="hover:text-amber-400">Heavy Drop Tees</button></li>
+                    <li><button onclick="filterCategory('Cargo & Pants')" class="hover:text-amber-400">Tactical Cargos</button></li>
+                    <li><button onclick="filterCategory('Shirts & Polos')" class="hover:text-amber-400">Cuban & Knitted Polos</button></li>
+                    <li><button onclick="filterCategory('Jackets & Hoodies')" class="hover:text-amber-400">Heavyweight Hoodies</button></li>
+                    <li><button onclick="filterCategory('Accessories')" class="hover:text-amber-400">Men's Streetwear Accessories</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heavy text-sm text-white uppercase font-bold tracking-wider mb-3">Direct Ordering</h4>
+                <p class="text-[11px] text-zinc-500 mb-2">No complicated payment portals. Click "Buy on WhatsApp", send your address, and pay via UPI or Cash on Delivery.</p>
+                <div class="flex items-center gap-2 text-emerald-400 font-bold">
+                    <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+                    <span>Verified WhatsApp Checkout</span>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-heavy text-sm text-white uppercase font-bold tracking-wider mb-3">Owner & Support</h4>
+                <p class="text-[11px] text-zinc-500 mb-2">Store owners can login anytime to update stocks, run sales, or add drops.</p>
+                <button onclick="openAdminModal()" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold">
+                    <i data-lucide="settings" class="w-3.5 h-3.5"></i> Owner Account Portal
+                </button>
+            </div>
+        </div>
+        <div class="border-t border-zinc-900 py-4 text-center text-zinc-600 text-[11px]">
+            © <span id="currentYear"></span> HEAVYKART Men's Fashion Apparel. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        /* ========================================================
+           HEAVYKART CORE ENGINE: STATE & LOCAL STORAGE
+           ======================================================== */
+        
+        // Clean slate: all default/demo products removed
+        const DEFAULT_PRODUCTS = [];
+
+        const CATEGORIES = [
+            "All",
+            "Oversized Tees",
+            "Cargo & Pants",
+            "Shirts & Polos",
+            "Jackets & Hoodies",
+            "Footwear",
+            "Accessories"
+        ];
+
+        // State Objects
+        let products = [];
+        let cart = [];
+        let selectedCategory = "All";
+        let onlySaleFilter = false;
+        let searchQuery = "";
+        let sortOption = "featured";
+        let storeSettings = {
+            whatsappNumber: "919381250578", // Store WhatsApp phone number
+            adminPasscode: "heavykart9898" // Owner secret passcode (hidden from display)
+        };
+        let ordersLog = [];
+        let isAdminLoggedIn = false;
+        let directCheckoutSingleItem = null;
+
+        // LocalStorage Keys (bumped to start with an empty catalogue)
+        const LS_KEYS = {
+            PRODUCTS: 'heavykart_products_v2',
+            CART: 'heavykart_cart_v1',
+            SETTINGS: 'heavykart_settings_v2',
+            ORDERS: 'heavykart_orders_v1'
+        };
+
+        // Initialize App on DOM Load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPersistedData();
+            renderCategoryTabs();
+            renderProducts();
+            updateCartUI();
+            updateStoreInfoDisplays();
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Search event listeners
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim().toLowerCase();
+                toggleClearSearchBtn();
+                renderProducts();
+            });
+
+            document.getElementById('mobileSearchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim().toLowerCase();
+                renderProducts();
+            });
+
+            lucide.createIcons();
+        });
+
+        // Load data from localStorage or seed
+        function loadPersistedData() {
+            try {
+                // Clear any legacy demo products
+                localStorage.removeItem('heavykart_products_v1');
+                
+                const storedProducts = localStorage.getItem(LS_KEYS.PRODUCTS);
+                products = storedProducts ? JSON.parse(storedProducts) : [];
+
+                const storedCart = localStorage.getItem(LS_KEYS.CART);
+                cart = storedCart ? JSON.parse(storedCart) : [];
+
+                const storedSettings = localStorage.getItem(LS_KEYS.SETTINGS);
+                if (storedSettings) {
+                    storeSettings = { ...storeSettings, ...JSON.parse(storedSettings) };
+                }
+
+                const storedOrders = localStorage.getItem(LS_KEYS.ORDERS);
+                ordersLog = storedOrders ? JSON.parse(storedOrders) : [];
+            } catch (err) {
+                console.error("Error reading localStorage:", err);
+                products = [];
+                cart = [];
+            }
+        }
+
+        function saveProducts() {
+            localStorage.setItem(LS_KEYS.PRODUCTS, JSON.stringify(products));
+        }
+
+        function saveCart() {
+            localStorage.setItem(LS_KEYS.CART, JSON.stringify(cart));
+        }
+
+        function saveSettingsToStorage() {
+            localStorage.setItem(LS_KEYS.SETTINGS, JSON.stringify(storeSettings));
+        }
+
+        function saveOrdersLog() {
+            localStorage.setItem(LS_KEYS.ORDERS, JSON.stringify(ordersLog));
+        }
+
+        // Render Categories Navigation
+        function renderCategoryTabs() {
+            const container = document.getElementById('categoryButtonsContainer');
+            container.innerHTML = CATEGORIES.map(cat => {
+                const isActive = selectedCategory === cat;
+                return `
+                    <button onclick="filterCategory('${cat}')" 
+                        class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all uppercase tracking-wider ${
+                            isActive 
+                                ? 'bg-amber-500 text-black shadow-md shadow-amber-500/20' 
+                                : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700'
+                        }">
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function filterCategory(cat) {
+            selectedCategory = cat;
+            renderCategoryTabs();
+            renderProducts();
+        }
+
+        function toggleSaleFilter() {
+            onlySaleFilter = !onlySaleFilter;
+            const btn = document.getElementById('saleOnlyToggle');
+            if (onlySaleFilter) {
+                btn.className = "flex items-center gap-1.5 bg-red-600 text-white border border-red-500 px-3 py-1.5 rounded-full text-xs font-bold shadow-md shadow-red-900/40 transition-all";
+            } else {
+                btn.className = "flex items-center gap-1.5 bg-red-500/10 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-full text-xs font-bold hover:bg-red-500/20 transition-all";
+            }
+            renderProducts();
+        }
+
+        function filterBySpecial(type) {
+            if (type === 'sale') {
+                onlySaleFilter = true;
+                selectedCategory = 'All';
+                const btn = document.getElementById('saleOnlyToggle');
+                btn.className = "flex items-center gap-1.5 bg-red-600 text-white border border-red-500 px-3 py-1.5 rounded-full text-xs font-bold shadow-md shadow-red-900/40 transition-all";
+                renderCategoryTabs();
+                renderProducts();
+                window.scrollTo({ top: 400, behavior: 'smooth' });
+            }
+        }
+
+        function handleSortChange() {
+            sortOption = document.getElementById('sortSelect').value;
+            renderProducts();
+        }
+
+        function clearSearch() {
+            searchQuery = "";
+            document.getElementById('searchInput').value = "";
+            document.getElementById('mobileSearchInput').value = "";
+            toggleClearSearchBtn();
+            renderProducts();
+        }
+
+        function toggleClearSearchBtn() {
+            const btn = document.getElementById('clearSearchBtn');
+            if (searchQuery.length > 0) {
+                btn.classList.remove('hidden');
+            } else {
+                btn.classList.add('hidden');
+            }
+        }
+
+        function resetFilters() {
+            selectedCategory = "All";
+            onlySaleFilter = false;
+            searchQuery = "";
+            sortOption = "featured";
+            document.getElementById('searchInput').value = "";
+            document.getElementById('mobileSearchInput').value = "";
+            document.getElementById('sortSelect').value = "featured";
+            toggleSaleFilter(); // reset toggle UI
+            onlySaleFilter = false;
+            renderCategoryTabs();
+            renderProducts();
+        }
+
+        // Render Product Cards
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyCatalogueState');
+            const itemCountElem = document.getElementById('itemCount');
+
+            // Filter logic
+            let filtered = products.filter(p => {
+                const matchCategory = (selectedCategory === "All" || p.category === selectedCategory);
+                const matchSale = (!onlySaleFilter || p.isOnSale === true);
+                const matchSearch = (!searchQuery || 
+                    p.name.toLowerCase().includes(searchQuery) || 
+                    p.category.toLowerCase().includes(searchQuery) ||
+                    (p.description && p.description.toLowerCase().includes(searchQuery))
+                );
+                return matchCategory && matchSale && matchSearch;
+            });
+
+            // Sorting logic
+            if (sortOption === "price-low") {
+                filtered.sort((a, b) => a.salePrice - b.salePrice);
+            } else if (sortOption === "price-high") {
+                filtered.sort((a, b) => b.salePrice - a.salePrice);
+            } else if (sortOption === "discount") {
+                filtered.sort((a, b) => {
+                    const discA = ((a.originalPrice - a.salePrice) / a.originalPrice);
+                    const discB = ((b.originalPrice - b.salePrice) / b.originalPrice);
+                    return discB - discA;
+                });
+            }
+
+            itemCountElem.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(product => {
+                const discountPercent = Math.round(((product.originalPrice - product.salePrice) / product.originalPrice) * 100);
+
+                return `
+                    <div class="bg-[#131417] border border-zinc-800 rounded-2xl overflow-hidden flex flex-col group hover:border-zinc-700 hover:shadow-xl transition-all duration-300">
+                        
+                        <!-- Image Container with Click-to-Open -->
+                        <div class="relative overflow-hidden aspect-[4/5] bg-zinc-900 cursor-pointer" onclick="openProductModal(${product.id})">
+                            <img src="${product.image}" 
+                                alt="${product.name}"
+                                loading="lazy"
+                                onerror="this.src='https://placehold.co/600x800/18181b/f59e0b?text=${encodeURIComponent(product.name)}'" 
+                                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10">
+                                ${product.isOnSale ? `
+                                    <span class="bg-red-600 text-white font-heavy text-[11px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shadow">
+                                        SALE ${discountPercent}% OFF
+                                    </span>
+                                ` : ''}
+                                ${product.badge ? `
+                                    <span class="bg-amber-500 text-black font-heavy text-[10px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider shadow">
+                                        ${product.badge}
+                                    </span>
+                                ` : ''}
+                            </div>
+
+                            <!-- Category Overlay -->
+                            <div class="absolute bottom-2.5 left-2.5 bg-black/60 backdrop-blur-md text-[10px] uppercase font-bold text-zinc-300 px-2 py-0.5 rounded">
+                                ${product.category}
+                            </div>
+
+                            <!-- Hover Quick View Hint -->
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                <span class="bg-black/80 text-white text-xs font-bold px-3 py-1.5 rounded-full border border-zinc-600 flex items-center gap-1.5 shadow-lg">
+                                    <i data-lucide="eye" class="w-3.5 h-3.5 text-amber-400"></i> View Product
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                            <div class="cursor-pointer" onclick="openProductModal(${product.id})">
+                                <h3 class="font-bold text-sm text-zinc-100 line-clamp-1 group-hover:text-amber-400 transition-colors" title="${product.name}">
+                                    ${product.name}
+                                </h3>
+                                <p class="text-[11px] text-zinc-400 line-clamp-2 mt-1">
+                                    ${product.description || "Premium fabric designed for structured modern streetwear fit."}
+                                </p>
+                            </div>
+
+                            <!-- Size Selector -->
+                            <div onclick="event.stopPropagation()">
+                                <span class="text-[10px] font-semibold text-zinc-500 uppercase block mb-1">Select Size:</span>
+                                <div class="flex flex-wrap gap-1.5" id="sizeSelector_${product.id}">
+                                    ${product.sizes.map((sz, idx) => `
+                                        <button type="button" 
+                                            onclick="selectProductSize(${product.id}, '${sz}')" 
+                                            class="size-pill-${product.id} text-[11px] font-bold px-2.5 py-1 rounded border ${
+                                                idx === 0 
+                                                    ? 'bg-amber-500 text-black border-amber-500' 
+                                                    : 'bg-zinc-900 text-zinc-300 border-zinc-700 hover:border-zinc-500'
+                                            }" 
+                                            data-size="${sz}">
+                                            ${sz}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Pricing -->
+                            <div class="flex items-baseline justify-between pt-1 border-t border-zinc-800/80 cursor-pointer" onclick="openProductModal(${product.id})">
+                                <div>
+                                    <span class="font-heavy text-xl font-bold text-white">₹${product.salePrice.toLocaleString()}</span>
+                                    ${product.originalPrice > product.salePrice ? `
+                                        <s class="text-xs text-zinc-500 ml-1.5 font-sans">₹${product.originalPrice.toLocaleString()}</s>
+                                    ` : ''}
+                                </div>
+                                <span class="text-[11px] text-emerald-400 font-semibold">In Stock</span>
+                            </div>
+
+                            <!-- Actions: Buy on WhatsApp + Add to Cart -->
+                            <div class="grid grid-cols-2 gap-2 pt-1" onclick="event.stopPropagation()">
+                                <button onclick="quickBuyWhatsApp(${product.id})" class="w-full bg-[#25D366] hover:bg-[#1eb854] text-black font-extrabold py-2 px-2 rounded-lg text-xs flex items-center justify-center gap-1.5 transition-all shadow-md" title="Order directly on WhatsApp">
+                                    <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current"></i>
+                                    <span>WhatsApp</span>
+                                </button>
+                                <button onclick="addToCart(${product.id})" class="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold py-2 px-2 rounded-lg text-xs flex items-center justify-center gap-1.5 border border-zinc-700 transition-all hover:text-amber-400">
+                                    <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                    <span>Add Bag</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // Active Product In Detail Modal State
+        let activeModalProduct = null;
+        let activeModalSelectedSize = "";
+        let activeModalQty = 1;
+
+        // Open Product Detail In Full Screen
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            activeModalProduct = product;
+            activeModalQty = 1;
+            activeModalSelectedSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : "Free Size";
+
+            // Populate Modal Content
+            const modal = document.getElementById('productDetailModal');
+            document.getElementById('modalProdTitle').textContent = product.name;
+            document.getElementById('modalProdCategory').textContent = product.category;
+            document.getElementById('modalProdSalePrice').textContent = `₹${product.salePrice.toLocaleString()}`;
+            document.getElementById('modalProdDescription').textContent = product.description || "Heavyweight structured streetwear silhouette. Crafted from high-GSM combed cotton designed for an effortless oversized drape.";
+            document.getElementById('modalQtyDisplay').textContent = activeModalQty;
+
+            const modalCartCount = document.getElementById('modalCartCount');
+            if (modalCartCount) {
+                modalCartCount.textContent = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            }
+
+            const imgEl = document.getElementById('modalProdImage');
+            imgEl.src = product.image;
+            imgEl.onerror = () => { imgEl.src = `https://placehold.co/800x1000/18181b/f59e0b?text=${encodeURIComponent(product.name)}`; };
+
+            // MRP and Discount tags
+            const origEl = document.getElementById('modalProdOriginalPrice');
+            const discTagEl = document.getElementById('modalProdDiscountTag');
+            if (product.originalPrice > product.salePrice) {
+                const discount = Math.round(((product.originalPrice - product.salePrice) / product.originalPrice) * 100);
+                origEl.textContent = `₹${product.originalPrice.toLocaleString()}`;
+                origEl.classList.remove('hidden');
+                discTagEl.textContent = `${discount}% OFF`;
+                discTagEl.classList.remove('hidden');
+            } else {
+                origEl.classList.add('hidden');
+                discTagEl.classList.add('hidden');
+            }
+
+            // Badges
+            const badgesContainer = document.getElementById('modalProdBadges');
+            badgesContainer.innerHTML = '';
+            if (product.isOnSale) {
+                const discount = Math.round(((product.originalPrice - product.salePrice) / product.originalPrice) * 100);
+                badgesContainer.innerHTML += `
+                    <span class="bg-red-600 text-white font-heavy text-xs font-bold px-3 py-1 rounded-lg uppercase tracking-wider shadow-lg">
+                        SALE ${discount}% OFF
+                    </span>
+                `;
+            }
+            if (product.badge) {
+                badgesContainer.innerHTML += `
+                    <span class="bg-amber-500 text-black font-heavy text-xs font-extrabold px-3 py-1 rounded-lg uppercase tracking-wider shadow-lg">
+                        ${product.badge}
+                    </span>
+                `;
+            }
+
+            // Render Sizes and Related Drops
+            renderModalSizes();
+            renderModalRelated(product);
+
+            // Display Modal in Fullscreen and Lock background scroll
+            modal.classList.remove('hidden');
+            modal.scrollTop = 0;
+            document.body.classList.add('overflow-hidden');
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productDetailModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+            document.body.classList.remove('overflow-hidden');
+            activeModalProduct = null;
+        }
+
+        function handleDetailBackdropClick(e) {
+            if (e.target.id === 'productDetailModal') {
+                closeProductModal();
+            }
+        }
+
+        function renderModalSizes() {
+            if (!activeModalProduct) return;
+            const container = document.getElementById('modalSizesContainer');
+            container.innerHTML = activeModalProduct.sizes.map(sz => {
+                const isSelected = activeModalSelectedSize === sz;
+                return `
+                    <button type="button" 
+                        onclick="setModalSelectedSize('${sz}')"
+                        class="px-4 py-2.5 text-xs font-bold rounded-xl border transition-all uppercase tracking-wider ${
+                            isSelected 
+                                ? 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/25 scale-105' 
+                                : 'bg-zinc-900 text-zinc-300 border-zinc-700 hover:border-zinc-500 hover:text-white'
+                        }">
+                        ${sz}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderModalRelated(currentProd) {
+            const container = document.getElementById('modalRelatedContainer');
+            if (!container) return;
+
+            const related = products
+                .filter(p => p.id !== currentProd.id)
+                .slice(0, 4);
+
+            if (related.length === 0) {
+                container.innerHTML = `<p class="col-span-2 sm:col-span-4 text-xs text-zinc-500 py-2">No other products listed in this collection yet.</p>`;
+                return;
+            }
+
+            container.innerHTML = related.map(prod => {
+                return `
+                    <div onclick="openProductModal(${prod.id})" class="bg-[#131417] border border-zinc-800 hover:border-amber-500/50 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 group flex flex-col">
+                        <div class="aspect-[4/5] bg-zinc-950 overflow-hidden relative">
+                            <img src="${prod.image}" alt="${prod.name}" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                onerror="this.src='https://placehold.co/400x500/18181b/f59e0b?text=${encodeURIComponent(prod.name)}'">
+                            <span class="absolute bottom-2 left-2 bg-black/70 backdrop-blur text-[10px] text-zinc-300 px-2 py-0.5 rounded font-bold uppercase">
+                                ${prod.category}
+                            </span>
+                        </div>
+                        <div class="p-3 flex-1 flex flex-col justify-between">
+                            <h5 class="text-xs font-bold text-white truncate group-hover:text-amber-400 transition-colors">${prod.name}</h5>
+                            <div class="flex items-center justify-between mt-2 pt-1 border-t border-zinc-800">
+                                <span class="font-heavy text-base font-bold text-amber-400">₹${prod.salePrice.toLocaleString()}</span>
+                                ${prod.originalPrice > prod.salePrice ? `<s class="text-[11px] text-zinc-500 font-sans">₹${prod.originalPrice.toLocaleString()}</s>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setModalSelectedSize(sz) {
+            activeModalSelectedSize = sz;
+            renderModalSizes();
+        }
+
+        function changeModalQty(delta) {
+            activeModalQty = Math.max(1, activeModalQty + delta);
+            document.getElementById('modalQtyDisplay').textContent = activeModalQty;
+        }
+
+        function buyModalProductWhatsApp() {
+            if (!activeModalProduct) return;
+
+            directCheckoutSingleItem = {
+                id: activeModalProduct.id,
+                name: activeModalProduct.name,
+                price: activeModalProduct.salePrice,
+                originalPrice: activeModalProduct.originalPrice,
+                size: activeModalSelectedSize,
+                qty: activeModalQty
+            };
+
+            closeProductModal();
+            openCheckoutModal();
+        }
+
+        function openActiveProductLightbox() {
+            if (!activeModalProduct) return;
+            openImageLightbox(activeModalProduct.image, activeModalProduct.name);
+        }
+
+        function openImageLightbox(imgUrl, title) {
+            const lightbox = document.getElementById('imageLightboxModal');
+            const imgElem = document.getElementById('lightboxImg');
+            const titleElem = document.getElementById('lightboxTitle');
+
+            if (!lightbox || !imgElem) return;
+
+            imgElem.src = imgUrl;
+            imgElem.onerror = () => { imgElem.src = `https://placehold.co/1000x1200/18181b/f59e0b?text=${encodeURIComponent(title || "HeavyKart")}`; };
+            if (titleElem) titleElem.textContent = title || "Product Photo";
+
+            lightbox.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeImageLightbox() {
+            const lightbox = document.getElementById('imageLightboxModal');
+            if (lightbox) {
+                lightbox.classList.add('hidden');
+            }
+        }
+
+        function buyFromLightbox() {
+            closeImageLightbox();
+            if (activeModalProduct) {
+                buyModalProductWhatsApp();
+            }
+        }
+
+        function addModalProductToCart() {
+            if (!activeModalProduct) return;
+
+            const cartItemId = `${activeModalProduct.id}_${activeModalSelectedSize}`;
+            const existingIndex = cart.findIndex(item => item.cartItemId === cartItemId);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += activeModalQty;
+            } else {
+                cart.push({
+                    cartItemId: cartItemId,
+                    id: activeModalProduct.id,
+                    name: activeModalProduct.name,
+                    price: activeModalProduct.salePrice,
+                    originalPrice: activeModalProduct.originalPrice,
+                    image: activeModalProduct.image,
+                    size: activeModalSelectedSize,
+                    qty: activeModalQty
+                });
+            }
+
+            saveCart();
+            updateCartUI();
+            
+            const modalCartCount = document.getElementById('modalCartCount');
+            if (modalCartCount) {
+                modalCartCount.textContent = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            }
+
+            showToast("Added To Bag", `${activeModalQty}x ${activeModalProduct.name} (${activeModalSelectedSize}) added!`);
+        }
+
+        // Close on Escape Key listener
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeImageLightbox();
+                closeProductModal();
+                toggleCartDrawer(false);
+                closeCheckoutModal();
+                closeAdminModal();
+            }
+        });
+
+        // User changes active size pill on card
+        function selectProductSize(productId, selectedSize) {
+            const pills = document.querySelectorAll(`.size-pill-${productId}`);
+            pills.forEach(pill => {
+                if (pill.getAttribute('data-size') === selectedSize) {
+                    pill.className = `size-pill-${productId} text-[11px] font-bold px-2.5 py-1 rounded border bg-amber-500 text-black border-amber-500`;
+                } else {
+                    pill.className = `size-pill-${productId} text-[11px] font-bold px-2.5 py-1 rounded border bg-zinc-900 text-zinc-300 border-zinc-700 hover:border-zinc-500`;
+                }
+            });
+        }
+
+        function getSelectedSizeForProduct(productId) {
+            const activePill = document.querySelector(`.size-pill-${productId}.bg-amber-500`);
+            if (activePill) {
+                return activePill.getAttribute('data-size');
+            }
+            const product = products.find(p => p.id === productId);
+            return product && product.sizes.length > 0 ? product.sizes[0] : "Standard";
+        }
+
+        // Cart Operations
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const chosenSize = getSelectedSizeForProduct(productId);
+            const cartItemId = `${product.id}_${chosenSize}`;
+
+            const existingIndex = cart.findIndex(item => item.cartItemId === cartItemId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    cartItemId: cartItemId,
+                    id: product.id,
+                    name: product.name,
+                    price: product.salePrice,
+                    originalPrice: product.originalPrice,
+                    image: product.image,
+                    size: chosenSize,
+                    qty: 1
+                });
+            }
+
+            saveCart();
+            updateCartUI();
+            showToast("Added To Bag", `${product.name} (${chosenSize}) added to your shopping bag.`);
+        }
+
+        function updateCartQty(cartItemId, delta) {
+            const index = cart.findIndex(item => item.cartItemId === cartItemId);
+            if (index === -1) return;
+
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+
+            saveCart();
+            updateCartUI();
+        }
+
+        function removeFromCart(cartItemId) {
+            cart = cart.filter(item => item.cartItemId !== cartItemId);
+            saveCart();
+            updateCartUI();
+        }
+
+        function clearCart() {
+            cart = [];
+            saveCart();
+            updateCartUI();
+            showToast("Bag Emptied", "All items have been removed from your cart.");
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cartDrawer');
+            const backdrop = document.getElementById('cartDrawerBackdrop');
+            if (open) {
+                backdrop.classList.remove('pointer-events-none', 'opacity-0');
+                backdrop.classList.add('opacity-100');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('pointer-events-none', 'opacity-0');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartCountBadge');
+            const container = document.getElementById('cartItemsContainer');
+            const subtotalElem = document.getElementById('cartSubtotal');
+            const discountElem = document.getElementById('cartDiscount');
+            const grandTotalElem = document.getElementById('cartGrandTotal');
+            const checkoutBtn = document.getElementById('cartCheckoutBtn');
+
+            const totalItemsCount = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            badge.textContent = totalItemsCount;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center p-6 text-zinc-500">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mb-3 text-zinc-700"></i>
+                        <p class="font-bold text-white text-sm">Your shopping bag is empty</p>
+                        <p class="text-xs text-zinc-400 mt-1 max-w-xs">Explore our latest drops and add oversized tees, cargos, and jackets.</p>
+                        <button onclick="toggleCartDrawer(false)" class="mt-4 bg-zinc-800 text-amber-400 hover:text-white text-xs font-bold px-4 py-2 rounded-lg border border-zinc-700">
+                            Continue Browsing
+                        </button>
+                    </div>
+                `;
+                subtotalElem.textContent = "₹0";
+                discountElem.textContent = "-₹0";
+                grandTotalElem.textContent = "₹0";
+                checkoutBtn.disabled = true;
+                checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                lucide.createIcons();
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+            checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            let totalSalePrice = 0;
+            let totalOriginalPrice = 0;
+
+            container.innerHTML = cart.map(item => {
+                totalSalePrice += (item.price * item.qty);
+                totalOriginalPrice += (item.originalPrice * item.qty);
+
+                return `
+                    <div class="flex items-center gap-3 p-3 bg-zinc-900/70 border border-zinc-800/80 rounded-xl">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover rounded-lg border border-zinc-800 flex-shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-xs text-white truncate">${item.name}</h4>
+                            <p class="text-[11px] text-zinc-400 mt-0.5">Size: <span class="text-amber-400 font-bold">${item.size}</span></p>
+                            <p class="font-heavy text-sm text-white font-bold mt-1">₹${item.price.toLocaleString()} <span class="text-[10px] text-zinc-500 font-sans font-normal">x ${item.qty}</span></p>
+                            
+                            <!-- Qty Control -->
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="updateCartQty('${item.cartItemId}', -1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded flex items-center justify-center font-bold text-xs">
+                                    -
+                                </button>
+                                <span class="text-xs font-bold text-white px-1.5">${item.qty}</span>
+                                <button onclick="updateCartQty('${item.cartItemId}', 1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded flex items-center justify-center font-bold text-xs">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart('${item.cartItemId}')" class="text-zinc-500 hover:text-red-400 p-1" title="Remove item">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            const savings = Math.max(0, totalOriginalPrice - totalSalePrice);
+            subtotalElem.textContent = `₹${totalOriginalPrice.toLocaleString()}`;
+            discountElem.textContent = `-₹${savings.toLocaleString()}`;
+            grandTotalElem.textContent = `₹${totalSalePrice.toLocaleString()}`;
+
+            lucide.createIcons();
+        }
+
+        // WhatsApp Ordering Pipeline
+        function quickBuyWhatsApp(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const chosenSize = getSelectedSizeForProduct(productId);
+            // Set single item mode
+            directCheckoutSingleItem = {
+                id: product.id,
+                name: product.name,
+                price: product.salePrice,
+                originalPrice: product.originalPrice,
+                size: chosenSize,
+                qty: 1
+            };
+
+            openCheckoutModal();
+        }
+
+        function openCheckoutModal() {
+            // Determine items to order
+            const modal = document.getElementById('checkoutModal');
+            const previewContainer = document.getElementById('checkoutOrderPreview');
+
+            let itemsToSummarize = [];
+            if (directCheckoutSingleItem) {
+                itemsToSummarize = [directCheckoutSingleItem];
+            } else {
+                itemsToSummarize = [...cart];
+            }
+
+            if (itemsToSummarize.length === 0) {
+                showToast("Empty Bag", "Please add at least one product to order.");
+                return;
+            }
+
+            let totalBill = 0;
+            previewContainer.innerHTML = itemsToSummarize.map(item => {
+                totalBill += (item.price * item.qty);
+                return `
+                    <div class="flex justify-between text-zinc-300 py-0.5 border-b border-zinc-800/60 last:border-none">
+                        <span>• ${item.name} (${item.size}) x${item.qty}</span>
+                        <span class="font-bold text-amber-400">₹${(item.price * item.qty).toLocaleString()}</span>
+                    </div>
+                `;
+            }).join('');
+
+            previewContainer.innerHTML += `
+                <div class="flex justify-between text-white font-bold pt-2 border-t border-zinc-700 text-sm">
+                    <span>Order Bill Payable:</span>
+                    <span class="text-emerald-400">₹${totalBill.toLocaleString()}</span>
+                </div>
+            `;
+
+            toggleCartDrawer(false);
+            modal.classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+            directCheckoutSingleItem = null;
+        }
+
+        // Executing WhatsApp Link Redirection
+        function executeWhatsAppOrder(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const payment = document.getElementById('custPayment').value;
+            const notes = document.getElementById('custNotes').value.trim();
+
+            let itemsToOrder = directCheckoutSingleItem ? [directCheckoutSingleItem] : [...cart];
+            if (itemsToOrder.length === 0) return;
+
+            let totalAmount = 0;
+            let itemLines = "";
+
+            itemsToOrder.forEach((item, index) => {
+                const lineTotal = item.price * item.qty;
+                totalAmount += lineTotal;
+                itemLines += `${index + 1}. *${item.name}*\n   • Size: ${item.size} | Qty: ${item.qty} | Price: ₹${lineTotal.toLocaleString()}\n`;
+            });
+
+            // Constructing WhatsApp formatted message
+            const message = 
+`⚡ *NEW ORDER - HEAVYKART STORE* ⚡
+━━━━━━━━━━━━━━━━━━━━━
+👤 *CUSTOMER DETAILS:*
+• *Name:* ${name}
+• *Phone:* ${phone}
+• *Delivery Address:* 
+${address}
+━━━━━━━━━━━━━━━━━━━━━
+🛍️ *ORDERED ITEMS:*
+${itemLines}
+━━━━━━━━━━━━━━━━━━━━━
+💰 *TOTAL AMOUNT:* ₹${totalAmount.toLocaleString()}
+💳 *Payment Mode:* ${payment}
+${notes ? `📝 *Special Note:* ${notes}\n` : ''}━━━━━━━━━━━━━━━━━━━━━
+_Please confirm my order and share invoice/tracking updates!_`;
+
+            // Clean recipient WhatsApp phone number
+            const targetPhone = storeSettings.whatsappNumber.replace(/[^0-9]/g, '');
+            const encodedText = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${targetPhone}?text=${encodedText}`;
+
+            // Save order record to Owner Admin tracker
+            const newOrderRecord = {
+                id: 'HK-' + Date.now().toString().slice(-6),
+                date: new Date().toLocaleString(),
+                customerName: name,
+                customerPhone: phone,
+                address: address,
+                items: itemsToOrder,
+                total: totalAmount,
+                paymentMode: payment,
+                status: 'Inquired on WhatsApp'
+            };
+
+            ordersLog.unshift(newOrderRecord);
+            saveOrdersLog();
+
+            // Clear single checkout item or clear cart if ordered from cart
+            if (!directCheckoutSingleItem) {
+                cart = [];
+                saveCart();
+                updateCartUI();
+            }
+            directCheckoutSingleItem = null;
+
+            closeCheckoutModal();
+            showToast("Opening WhatsApp", "Connecting you with HEAVYKART order team on WhatsApp...");
+
+            // Open WhatsApp in new window/tab
+            window.open(waUrl, '_blank');
+        }
+
+        function openDirectWhatsAppChat() {
+            const targetPhone = storeSettings.whatsappNumber.replace(/[^0-9]/g, '');
+            const defaultMsg = encodeURIComponent("Hello HEAVYKART Team! I have a question regarding Men's fashion products and size availability.");
+            window.open(`https://wa.me/${targetPhone}?text=${defaultMsg}`, '_blank');
+        }
+
+        // Admin Portal Operations
+        function openAdminModal() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.remove('hidden');
+
+            if (isAdminLoggedIn) {
+                showAdminWorkspace();
+            } else {
+                document.getElementById('adminLockScreen').classList.remove('hidden');
+                document.getElementById('adminWorkspace').classList.add('hidden');
+                document.getElementById('adminPassInput').value = "";
+                document.getElementById('adminPassInput').focus();
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function verifyAdminPasscode() {
+            const input = document.getElementById('adminPassInput').value;
+            if (input === storeSettings.adminPasscode) {
+                isAdminLoggedIn = true;
+                showAdminWorkspace();
+                showToast("Admin Unlocked", "Welcome to HeavyKart Store Management.");
+            } else {
+                showToast("Access Denied", "Incorrect owner passcode. Please enter the valid code.");
+            }
+        }
+
+        function lockAdminPanel() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminLockScreen').classList.remove('hidden');
+            document.getElementById('adminWorkspace').classList.add('hidden');
+            showToast("Panel Locked", "Owner control panel is locked.");
+        }
+
+        function showAdminWorkspace() {
+            document.getElementById('adminLockScreen').classList.add('hidden');
+            document.getElementById('adminWorkspace').classList.remove('hidden');
+            
+            // Populate current settings
+            document.getElementById('ownerPhoneSetting').value = storeSettings.whatsappNumber;
+            document.getElementById('adminInventoryCount').textContent = products.length;
+            document.getElementById('adminOrdersCount').textContent = ordersLog.length;
+
+            renderAdminInventoryTable();
+            renderAdminOrdersList();
+            lucide.createIcons();
+        }
+
+        function switchAdminTab(tabName) {
+            const tabAdd = document.getElementById('tabAddProduct');
+            const tabInv = document.getElementById('tabInventory');
+            const tabOrd = document.getElementById('tabOrders');
+
+            const btnAdd = document.getElementById('tabBtnAdd');
+            const btnInv = document.getElementById('tabBtnInventory');
+            const btnOrd = document.getElementById('tabBtnOrders');
+
+            tabAdd.classList.add('hidden');
+            tabInv.classList.add('hidden');
+            tabOrd.classList.add('hidden');
+
+            btnAdd.className = "pb-3 text-zinc-400 hover:text-white";
+            btnInv.className = "pb-3 text-zinc-400 hover:text-white";
+            btnOrd.className = "pb-3 text-zinc-400 hover:text-white";
+
+            if (tabName === 'add') {
+                tabAdd.classList.remove('hidden');
+                btnAdd.className = "pb-3 text-amber-400 border-b-2 border-amber-500 font-bold";
+            } else if (tabName === 'inventory') {
+                tabInv.classList.remove('hidden');
+                btnInv.className = "pb-3 text-amber-400 border-b-2 border-amber-500 font-bold";
+                renderAdminInventoryTable();
+            } else if (tabName === 'orders') {
+                tabOrd.classList.remove('hidden');
+                btnOrd.className = "pb-3 text-amber-400 border-b-2 border-amber-500 font-bold";
+                renderAdminOrdersList();
+            }
+        }
+
+        function saveStoreSettings() {
+            const newPhone = document.getElementById('ownerPhoneSetting').value.trim();
+            if (!newPhone) {
+                showToast("Invalid Input", "Please enter a valid WhatsApp phone number with country code.");
+                return;
+            }
+            storeSettings.whatsappNumber = newPhone;
+            saveSettingsToStorage();
+            updateStoreInfoDisplays();
+            showToast("Settings Updated", `Orders will now be sent to +${newPhone}`);
+        }
+
+        function updateStoreInfoDisplays() {
+            const display = document.getElementById('displayStoreWhatsApp');
+            if (display) {
+                display.textContent = `+${storeSettings.whatsappNumber}`;
+            }
+        }
+
+        // Add Product via Admin Form
+        function handleAddNewProduct(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('newProdName').value.trim();
+            const category = document.getElementById('newProdCategory').value;
+            const originalPrice = parseFloat(document.getElementById('newProdOriginalPrice').value);
+            const salePrice = parseFloat(document.getElementById('newProdSalePrice').value);
+            const badge = document.getElementById('newProdBadge').value.trim();
+            const isOnSale = document.getElementById('newProdOnSale').checked;
+            const sizesRaw = document.getElementById('newProdSizes').value;
+            const image = document.getElementById('newProdImage').value.trim();
+            const description = document.getElementById('newProdDesc').value.trim();
+
+            const parsedSizes = sizesRaw.split(',').map(s => s.trim()).filter(s => s.length > 0);
+
+            const newProduct = {
+                id: Date.now(),
+                name,
+                category,
+                originalPrice,
+                salePrice,
+                badge: badge || (isOnSale ? "SALE" : ""),
+                isOnSale,
+                sizes: parsedSizes.length > 0 ? parsedSizes : ["Free Size"],
+                image,
+                description
+            };
+
+            products.unshift(newProduct);
+            saveProducts();
+            renderProducts();
+            document.getElementById('adminInventoryCount').textContent = products.length;
+
+            // Reset form
+            document.getElementById('addProductForm').reset();
+            document.getElementById('newProdSizes').value = "S, M, L, XL, XXL";
+            document.getElementById('newProdOnSale').checked = true;
+            clearJpgImageInput();
+
+            showToast("Product Published!", `"${name}" is now live on HeavyKart storefront.`);
+            switchAdminTab('inventory');
+        }
+
+        // Handle direct JPG file upload from local device
+        function handleJpgFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Check if file is image (JPEG/JPG/PNG/WEBP)
+            if (!file.type.match('image.*')) {
+                showToast("Invalid File", "Please select a valid .JPG or .JPEG image file.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Data = e.target.result;
+                document.getElementById('newProdImage').value = base64Data;
+                updateJpgPreview(base64Data, `${file.name} (${Math.round(file.size / 1024)} KB)`);
+                showToast("JPG Photo Loaded", `Loaded ${file.name} successfully.`);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Handle URL input typing or pasting
+        function handleJpgUrlInput(url) {
+            const trimmed = url.trim();
+            if (trimmed.length > 5) {
+                updateJpgPreview(trimmed, "Direct Image URL");
+            } else {
+                document.getElementById('jpgPreviewContainer').classList.add('hidden');
+            }
+        }
+
+        // Show live preview of the JPG image
+        function updateJpgPreview(src, infoText) {
+            const container = document.getElementById('jpgPreviewContainer');
+            const img = document.getElementById('jpgPreviewImg');
+            const info = document.getElementById('jpgPreviewInfo');
+
+            if (!container || !img) return;
+
+            img.src = src;
+            img.onerror = () => {
+                info.textContent = "Image could not be rendered (invalid URL)";
+            };
+            if (info) info.textContent = infoText || "Ready to publish";
+            container.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // Clear JPG preview and reset input
+        function clearJpgImageInput() {
+            const imgInput = document.getElementById('newProdImage');
+            const fileInput = document.getElementById('newProdFileInput');
+            const container = document.getElementById('jpgPreviewContainer');
+
+            if (imgInput) imgInput.value = '';
+            if (fileInput) fileInput.value = '';
+            if (container) container.classList.add('hidden');
+        }
+
+        // Quick sample photo fills with high-resolution .jpg menswear photos
+        function setSampleImg(type) {
+            const imgInput = document.getElementById('newProdImage');
+            const samples = {
+                tee: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop&fm=jpg",
+                cargo: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=800&auto=format&fit=crop&fm=jpg",
+                jacket: "https://images.unsplash.com/photo-1548883354-7622d03aca27?q=80&w=800&auto=format&fit=crop&fm=jpg",
+                hoodie: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=800&auto=format&fit=crop&fm=jpg",
+                sneaker: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=800&auto=format&fit=crop&fm=jpg"
+            };
+            if (samples[type]) {
+                imgInput.value = samples[type];
+                updateJpgPreview(samples[type], `${type.toUpperCase()} Sample .jpg`);
+                showToast("JPG Selected", `Loaded ${type} sample photo.`);
+            }
+        }
+
+        // Render Inventory Table in Owner Modal
+        function renderAdminInventoryTable() {
+            const tbody = document.getElementById('adminInventoryTableBody');
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-500">No products in inventory. Add one above!</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = products.map(prod => `
+                <tr class="hover:bg-zinc-900/40 transition-colors">
+                    <td class="p-3 flex items-center gap-2">
+                        <img src="${prod.image}" class="w-8 h-10 object-cover rounded border border-zinc-800" onerror="this.src='https://placehold.co/40x50/222/aaa?text=Item'">
+                        <div>
+                            <span class="font-bold text-white block text-xs">${prod.name}</span>
+                            <span class="text-[10px] text-zinc-500">ID: ${prod.id}</span>
+                        </div>
+                    </td>
+                    <td class="p-3 text-zinc-400">${prod.category}</td>
+                    <td class="p-3 font-bold text-amber-400">₹${prod.salePrice.toLocaleString()}</td>
+                    <td class="p-3 text-zinc-500">₹${prod.originalPrice.toLocaleString()}</td>
+                    <td class="p-3">
+                        <button onclick="toggleProductSaleState(${prod.id})" class="px-2 py-0.5 rounded text-[10px] font-bold ${
+                            prod.isOnSale 
+                                ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
+                                : 'bg-zinc-800 text-zinc-500 border border-zinc-700'
+                        }">
+                            ${prod.isOnSale ? '🔥 ON SALE' : 'REGULAR'}
+                        </button>
+                    </td>
+                    <td class="p-3 text-right">
+                        <div class="flex items-center justify-end gap-1.5">
+                            <button onclick="quickEditPrice(${prod.id})" class="p-1 text-zinc-400 hover:text-amber-400" title="Edit Price">
+                                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <button onclick="deleteProduct(${prod.id})" class="p-1 text-zinc-400 hover:text-red-400" title="Delete Product">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function toggleProductSaleState(productId) {
+            const index = products.findIndex(p => p.id === productId);
+            if (index > -1) {
+                products[index].isOnSale = !products[index].isOnSale;
+                saveProducts();
+                renderAdminInventoryTable();
+                renderProducts();
+                showToast("Sale Status Updated", `${products[index].name} is now ${products[index].isOnSale ? 'ON SALE' : 'Regular Price'}.`);
+            }
+        }
+
+        function quickEditPrice(productId) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+
+            const newSale = prompt(`Set new Selling Price (₹) for "${prod.name}":`, prod.salePrice);
+            if (newSale !== null && !isNaN(parseFloat(newSale))) {
+                prod.salePrice = Math.max(1, parseFloat(newSale));
+                saveProducts();
+                renderAdminInventoryTable();
+                renderProducts();
+                showToast("Price Updated", `Price changed to ₹${prod.salePrice.toLocaleString()}`);
+            }
+        }
+
+        function deleteProduct(productId) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+
+            // Safe in-app removal without alert/confirm popup
+            products = products.filter(p => p.id !== productId);
+            saveProducts();
+            renderAdminInventoryTable();
+            renderProducts();
+            document.getElementById('adminInventoryCount').textContent = products.length;
+            showToast("Product Removed", `"${prod.name}" has been deleted from HeavyKart.`);
+        }
+
+        function clearAllProducts() {
+            products = [];
+            saveProducts();
+            renderAdminInventoryTable();
+            renderProducts();
+            document.getElementById('adminInventoryCount').textContent = 0;
+            showToast("Catalog Cleared", "All products have been removed from the storefront.");
+        }
+
+        // Render WhatsApp Order Inquiries Table in Admin
+        function renderAdminOrdersList() {
+            const list = document.getElementById('adminOrdersList');
+            if (ordersLog.length === 0) {
+                list.innerHTML = `
+                    <div class="p-8 text-center text-zinc-500 border border-zinc-800 rounded-xl">
+                        <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-2 text-zinc-600"></i>
+                        <p class="text-xs">No WhatsApp inquiries received yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = ordersLog.map(ord => `
+                <div class="bg-zinc-900/80 border border-zinc-800 p-4 rounded-xl space-y-2 text-xs">
+                    <div class="flex items-center justify-between">
+                        <span class="font-mono text-amber-400 font-bold">${ord.id}</span>
+                        <span class="text-[10px] text-zinc-500">${ord.date}</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-300">
+                        <div>
+                            <span class="text-zinc-500 block">Customer:</span>
+                            <span class="font-bold text-white">${ord.customerName}</span> (${ord.customerPhone})
+                        </div>
+                        <div>
+                            <span class="text-zinc-500 block">Bill & Payment:</span>
+                            <span class="font-bold text-emerald-400">₹${ord.total.toLocaleString()}</span> via ${ord.paymentMode}
+                        </div>
+                    </div>
+                    <div class="text-[11px] text-zinc-400 bg-zinc-950 p-2 rounded">
+                        <span class="font-semibold text-zinc-300">Address:</span> ${ord.address}
+                    </div>
+                    <div class="text-[11px] text-zinc-400">
+                        <span class="font-semibold text-zinc-300">Items:</span> 
+                        ${ord.items.map(i => `${i.name} (${i.size}) x${i.qty}`).join(', ')}
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Custom UI Toast Notification (Zero alert() usage)
+        let toastTimeout = null;
+        function showToast(title, message) {
+            const toast = document.getElementById('toastNotification');
+            const titleElem = document.getElementById('toastTitle');
+            const msgElem = document.getElementById('toastMessage');
+
+            titleElem.textContent = title;
+            msgElem.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 3200);
+        }
+    </script>
+</body>
+</html>
